@@ -12,10 +12,19 @@ require('styles//TagPlayer.css');
 
 class TagPlayerComponent extends React.Component {
 
-	
+	// getInitialState () {
+ //    	return {
+ //      		webmURL: null
+ //    	};
+ //  	}
 
 	constructor(props) {
     	super(props);
+
+    	this.state = {
+      		webmURL: null
+    	}
+
   		console.log('constructor...', props);
   		YoutubeUtils.queryVideoInfo(props.youtubeId)
   			.then(function(info) {
@@ -25,8 +34,12 @@ class TagPlayerComponent extends React.Component {
   				//console.log('state', this.state)
   				this.$video.src = this.webmURL;
 
+  				this.setState({
+  					webmURL: this.webmURL
+  				});
+
   				// TO FORCE render to pass videoURL down. better solution?!
-  				this.forceUpdate();
+  				//this.forceUpdate();
   				
   			}.bind(this))
   			.catch(function(error) { console.log(error) });
@@ -70,13 +83,13 @@ class TagPlayerComponent extends React.Component {
 	        
 	      </div>
 	      <div>
-	      	<button onClick={this._play.bind(this)}>Play</button>
-	      	<button onClick={this._pause.bind(this)}>Pause</button>
+	      	<button className='btn' onClick={this._play.bind(this)}>Play</button>
+	      	<button className='btn' onClick={this._pause.bind(this)}>Pause</button>
 	      </div>
 	      <div>
 	      	    <TagTimeline conceptData={this.props.conceptData}
 	      	    			 gotoTime={this.gotoTime.bind(this)}
-	      	    			 videoURL={this.webmURL}>
+	      	    			 videoURL={this.state.webmURL}>
 	      	    </TagTimeline>
 	      </div>
 	     </div>
