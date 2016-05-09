@@ -1,0 +1,53 @@
+.tagplayer-component {
+  
+}
+
+
+.tagtimeline-component  {
+	margin: 10px;
+	padding: 5px;
+
+
+  
+}
+
+.tagtimeline-component ul {
+
+	list-style: none;
+	width: 500px;
+	position: relative;
+	border-bottom: 1px solid #AAA;
+	border-left: 2px solid #AAA;
+	border-right: 2px solid #AAA;
+	padding: 10px;
+
+}
+
+.tagtimeline-component ul li {
+	display: inline-block;
+	position: absolute;
+	
+	width: 3px;
+	height: 10px;
+	background-color: #AAA;
+	cursor: pointer;
+	bottom: 0px;
+	opacity: 0.7;
+
+}
+
+.tagtimeline-component ul li .info {
+	display: none;
+	margin-top: -3em;
+	margin-left: -5px;
+	font-size: 10px;
+	color: #AAA;
+}
+
+.tagtimeline-component ul li .info .tags {
+	display: none;
+}
+
+.tagtimeline-component ul li:hover .info {
+	display: block;
+}
