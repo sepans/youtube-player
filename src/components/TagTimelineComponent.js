@@ -13,6 +13,11 @@ class TagTimelineComponent extends React.Component {
 		super(props);
 		console.log('timeline props', props);
 
+		this.state = {
+			currentWidth: 30,
+			currentSlide: -130
+		}
+
 	}
 
 	_gotoFrame(i) {
@@ -80,6 +85,37 @@ class TagTimelineComponent extends React.Component {
 		}
 	}
 
+	_moveLeft() {
+		if(this.state.currentSlide < 100) {
+			this.state.currentSlide += 100;
+			this.forceUpdate();
+		}
+	}
+
+	_moveRight() {
+		if(this.state.currentSlide > -this.state.currentWidth*30) {
+			this.state.currentSlide -= 100;
+			this.forceUpdate();
+		}
+
+	}
+
+	_zoomIn() {
+		if(this.state.currentWidth < 160) {
+			this.state.currentWidth += 20;
+		
+			this.forceUpdate();
+		}
+	}
+
+	_zoomOut() {
+		if(this.state.currentWidth > 20) {
+			this.state.currentWidth -= 20;
+			this.forceUpdate();
+		}
+
+	}
+
 	render() {
 		//const width = 500;
 		let conceptList = this.props.conceptData.map((d, i) => {
@@ -95,7 +131,7 @@ class TagTimelineComponent extends React.Component {
 			 			<span className='info'>
 			 				<span className='time'>{Math.round(d.start)}s</span>
 			 				<span className='tags'>{d.concepts}</span>
-			 				<canvas className='screenshot' ref={'canvas'+i}></canvas>
+			 				
 
 			 			</span>
 
@@ -104,12 +140,28 @@ class TagTimelineComponent extends React.Component {
 		 	)
 		})
 
+		let canvases = this.props.conceptData.map((d, i) => {
+			return (
+				<canvas className='screenshot' onClick={this._gotoFrame.bind(this, i)} style={{left: i*this.state.currentWidth+'px'}} ref={'canvas'+i}></canvas>
+			)
+		})
+
 		return (
 			<div className="tagtimeline-component">
 				<ul>
 					{conceptList}
 				</ul>
-				
+				<div className='canvas-container'>
+					<div className='canvas-slider' style={{marginLeft: this.state.currentSlide}}>
+						{canvases}
+					</div>
+				</div>
+				<div>
+	      			<button className='btn' onClick={this._moveLeft.bind(this)}>&lt;</button>
+	      			<button className='btn' onClick={this._zoomIn.bind(this)}>+</button>
+	      			<button className='btn' onClick={this._zoomOut.bind(this)}>-</button>
+	      			<button className='btn' onClick={this._moveRight.bind(this)}>&gt;</button>
+	      		</div>
 
 			</div>
 		);

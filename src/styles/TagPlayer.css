@@ -53,9 +53,37 @@
 }
 
 .tagtimeline-component ul li .info .screenshot {
+	/*
 	opacity: 1;
 	margin-left: -150px;
     margin-top: 30px;
+    */
+ }
+ .canvas-container {
+ 	width: 680px;
+ 	height: 150px;
+ 	overflow: hidden;
+ }
+
+ .canvas-container .canvas-slider {
+ 	
+ 	position: relative;
+ 	transition: 0.3s ease-in;
+ }
+
+ .screenshot {
+
+    position: absolute;
+    border: 1px solid #eee;
+    transition: 0.3s ease-in;
+    margin-left: -30%;
+
+}
+
+ .screenshot:hover {
+
+    border: 1px solid #333;
+    cursor: pointer;
 
 }
 
