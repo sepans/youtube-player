@@ -19,10 +19,9 @@
 	list-style: none;
 	width: 500px;
 	position: relative;
-	border-bottom: 1px solid #555;
-	border-left: 1px solid #555;
-	border-right: 1px solid #555;
-	padding: 10px;
+	border: 1px solid #555;
+	
+	height: 16px;
 
 }
 
@@ -32,16 +31,20 @@
 	display: inline-block;
 	position: absolute;
 	
-	width: 3px;
-	height: 10px;
-	background-color: #555;
+	
+	height: 15px;
+	background-color: rgba(100, 100, 100, 0.5);
+	border: 1px solid #888;
 	cursor: pointer;
 	bottom: 0px;
-	opacity: 0.7;
+	
 
 }
 
+
+
 .tagtimeline-component ul li .info {
+	
 	display: none;
 	margin-top: -3em;
 	margin-left: -5px;
@@ -49,8 +52,17 @@
 	color: #555;
 }
 
+.tagtimeline-component ul li .info .screenshot {
+	opacity: 1;
+	margin-left: -150px;
+    margin-top: 30px;
+
+}
+
 .tagtimeline-component ul li .info .tags {
-	display: none;
+	display: block;
+	width: 250px;
+	overflow: hidden;
 }
 
 .tagtimeline-component ul li:hover .info {
