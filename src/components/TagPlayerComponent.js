@@ -74,8 +74,8 @@ class TagPlayerComponent extends React.Component {
 	        
 	      </div>
 	      <div>
-	      	<button className='btn' onClick={this._play.bind(this)}>Play</button>
-	      	<button className='btn' onClick={this._pause.bind(this)}>Pause</button>
+	      	<button className='fa fa-play' onClick={this._play.bind(this)}></button>
+	      	<button className='fa fa-pause' onClick={this._pause.bind(this)}></button>
 	      </div>
 	      <div>
 	      	    <TagTimeline conceptData={this.props.conceptData}

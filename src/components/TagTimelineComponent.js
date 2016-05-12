@@ -136,10 +136,10 @@ class TagTimelineComponent extends React.Component {
 					</div>
 				</div>
 				<div className='control'>
-	      			<button className='btn' onClick={this._moveLeft.bind(this)}>&lt;</button>
-	      			<button className='btn' onClick={this._zoomIn.bind(this)}>+</button>
-	      			<button className='btn' onClick={this._zoomOut.bind(this)}>-</button>
-	      			<button className='btn' onClick={this._moveRight.bind(this)}>&gt;</button>
+	      			<button className='fa fa-hand-o-left' onClick={this._moveLeft.bind(this)}></button>
+	      			<button className='fa fa-search-plus' onClick={this._zoomIn.bind(this)}></button>
+	      			<button className='fa fa-search-minus' onClick={this._zoomOut.bind(this)}></button>
+	      			<button className='fa fa-hand-o-right' onClick={this._moveRight.bind(this)}></button>
 	      		</div>
 
 			</div>

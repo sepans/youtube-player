@@ -96,3 +96,11 @@
 .tagtimeline-component ul li:hover .info {
 	display: block;
 }
+
+.tagtimeline-component .control {
+	margin-top: 10px;
+}
+
+.tagtimeline-component .control .fa {
+	margin-right: 20px;
+}
