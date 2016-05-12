@@ -11,7 +11,6 @@ class TagTimelineComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log('timeline props', props);
 
 		this.state = {
 			currentWidth: 30,
@@ -21,66 +20,46 @@ class TagTimelineComponent extends React.Component {
 	}
 
 	_gotoFrame(i) {
-		console.log('GOTO FRAME', i, this.props.conceptData[i], this.props.gotoTime);
 		const time = this.props.conceptData[i].start;
 		this.props.gotoTime(time);
 	}
 
 	componentWillReceiveProps(newProps) {
-		//console.log('UPDATE', this.props, newProps)
+
+		// called when props get updated (e.g. video url is set after ajax call)
 		if(newProps.videoURL) {
-			//console.log('VIDEO URL', newProps.videoURL);
-			console.log(this.refs);
+
+			// virtual video element to create screenshots
 			const vid= document.createElement('video');
-			//vid.src = newProps.videoURL;
 			const self = this;
-				console.log('onloadeddata', vid);
-
-				//self.props.conceptData.forEach(function(d,i) {
 					
 
-					let createScreenshot = function(i) {
-						console.log('createScreenshot', i)
-						let d = self.props.conceptData[i];
+			let createScreenshot = function(i) {
 
-						const canvas =  ReactDOM.findDOMNode( self.refs['canvas'+i])
+				let d = self.props.conceptData[i];
 
-						// vid.src is the same. shouldn't change but without reseting it
-						// inloadeddata is not getting called (which seems to be needed)
-						vid.src = newProps.videoURL;
-	    				vid.currentTime = d.start;
+				const canvas =  ReactDOM.findDOMNode( self.refs['canvas'+i])
 
-	    				const ctx = canvas.getContext('2d');
+				// vid.src is the same. shouldn't change but without reseting it
+				// inloadeddata is not getting called (which seems to be needed)
+				vid.src = newProps.videoURL;
+				vid.currentTime = d.start;
 
+				const ctx = canvas.getContext('2d');
 
-	    				console.log('waiting for load');
-				   
-
-						vid.onloadeddata = function() {
-							console.log('DRAW', vid.currentTime, i,  self.props.conceptData.length)
-							  
-							ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
-							if(i<self.props.conceptData.length-1) {
-								console.log('call', i+1);
-								createScreenshot(i+1)
-							}
-						}
-
+				vid.onloadeddata = function() {
+					  
+					ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+					if(i<self.props.conceptData.length-1) {
+						//create screenshot for the next frame
+						createScreenshot(i+1)
 					}
+				}
 
-					createScreenshot(0);
+			}
+
+			createScreenshot(0);
 					
-				    
-
-				    
-
-    				//ctx.restore();
-
-
-				   
-				//});
-
-			//}
 
 		}
 	}
@@ -142,13 +121,13 @@ class TagTimelineComponent extends React.Component {
 
 		let canvases = this.props.conceptData.map((d, i) => {
 			return (
-				<canvas className='screenshot' onClick={this._gotoFrame.bind(this, i)} style={{left: i*this.state.currentWidth+'px'}} ref={'canvas'+i}></canvas>
+				<canvas key={'canvas'+i} className='screenshot' onClick={this._gotoFrame.bind(this, i)} style={{left: i*this.state.currentWidth+'px'}} ref={'canvas'+i}></canvas>
 			)
 		})
 
 		return (
 			<div className="tagtimeline-component">
-				<ul>
+				<ul key='ls' className='timeline-list'>
 					{conceptList}
 				</ul>
 				<div className='canvas-container'>
@@ -156,7 +135,7 @@ class TagTimelineComponent extends React.Component {
 						{canvases}
 					</div>
 				</div>
-				<div>
+				<div className='control'>
 	      			<button className='btn' onClick={this._moveLeft.bind(this)}>&lt;</button>
 	      			<button className='btn' onClick={this._zoomIn.bind(this)}>+</button>
 	      			<button className='btn' onClick={this._zoomOut.bind(this)}>-</button>

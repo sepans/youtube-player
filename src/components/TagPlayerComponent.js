@@ -29,17 +29,12 @@ class TagPlayerComponent extends React.Component {
   		YoutubeUtils.queryVideoInfo(props.youtubeId)
   			.then(function(info) {
   				this.webmURL = info.webmURL;
-  				console.log('webmURL', this.webmURL);
-  				console.log(this.$video);
-  				//console.log('state', this.state)
   				this.$video.src = this.webmURL;
 
   				this.setState({
   					webmURL: this.webmURL
   				});
 
-  				// TO FORCE render to pass videoURL down. better solution?!
-  				//this.forceUpdate();
   				
   			}.bind(this))
   			.catch(function(error) { console.log(error) });
@@ -47,11 +42,8 @@ class TagPlayerComponent extends React.Component {
 
 	componentDidMount(){
 		
-		
+		//create a reference to the video element
 		this.$video = ReactDOM.findDOMNode( this.refs.vid )
-		console.log('$video', this.$video);
-		//$video.addEventListener("loadedmetadata", this._metaDataLoaded )
-		//$video.addEventListener("progress", this._progress )
 		
 
 	}
@@ -74,7 +66,6 @@ class TagPlayerComponent extends React.Component {
 
 	render() {
 
-		//console.log('render this.webmURL', this.webmURL)
 
 	    return (
 	    <div className="tagplayer-component">
@@ -99,9 +90,6 @@ class TagPlayerComponent extends React.Component {
 
 TagPlayerComponent.displayName = 'TagPlayer';
 
-// Uncomment properties you need
-// TagPlayerComponent.propTypes = {};
-// TagPlayerComponent.defaultProps = {};
 
 export default TagPlayerComponent;
 
