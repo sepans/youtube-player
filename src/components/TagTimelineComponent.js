@@ -121,7 +121,9 @@ class TagTimelineComponent extends React.Component {
 
 		let canvases = this.props.conceptData.map((d, i) => {
 			return (
-				<canvas key={'canvas'+i} className='screenshot' onClick={this._gotoFrame.bind(this, i)} style={{left: i*this.state.currentWidth+'px'}} ref={'canvas'+i}></canvas>
+				<div className='screenshot-container' key={'screenshot-container'+i}  style={{width: this.state.currentWidth+'px'}}>
+					<canvas key={'canvas'+i} className='screenshot' onClick={this._gotoFrame.bind(this, i)}  ref={'canvas'+i}></canvas>
+				</div>
 			)
 		})
 

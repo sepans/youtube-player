@@ -66,24 +66,51 @@
  }
 
  .canvas-container .canvas-slider {
- 	
+ 	width: 10000px;
+;
  	position: relative;
  	transition: 0.3s ease-in;
  }
 
- .screenshot {
+ .screenshot-container {
+ 	overflow: hidden;
+ 	display: inline-block;
+ 	transition: all 0.3s ease-in;
+ 	height: 150px;
+ 	border: 1px solid #fff;
 
+ }
+
+ .screenshot-container:hover {
+ 	width: 300px !important;
+ }
+
+.screenshot-container:hover .screenshot {
+ 	
+ 	transform: translateX(0px);
+ }
+
+ .screenshot {
+ 	/*
     position: absolute;
-    border: 1px solid #eee;
-    transition: 0.3s ease-in;
-    margin-left: -30%;
+    */
+    b
+
+    transition: all 0.3s ease-in;
+    /*
+    margin-left: -50%;
+    
+    
+    */
+	transform: translateX(-100px);
 
 }
 
  .screenshot:hover {
 
-    border: 1px solid #333;
+    /*border: 1px solid #333;*/
     cursor: pointer;
+
 
 }
 
