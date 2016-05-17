@@ -65,15 +65,15 @@ class TagTimelineComponent extends React.Component {
 	}
 
 	_moveLeft() {
-		if(this.state.currentSlide < 100) {
-			this.state.currentSlide += 100;
+		if(this.state.currentSlide < 0) {
+			this.state.currentSlide += 2*this.state.currentWidth;
 			this.forceUpdate();
 		}
 	}
 
 	_moveRight() {
 		if(this.state.currentSlide > -this.state.currentWidth*30) {
-			this.state.currentSlide -= 100;
+			this.state.currentSlide -= 2*this.state.currentWidth;
 			this.forceUpdate();
 		}
 

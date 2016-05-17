@@ -72,6 +72,33 @@
  	transition: 0.3s ease-in;
  }
 
+.canvas-slider::before, .canvas-slider::after {
+ 	position: absolute;
+ 	display: block;
+ 	content: '';
+ 	width: 0; 
+	height: 0; 
+	top: 70px;
+ } 
+
+ .canvas-slider::before {
+ 	left: -20px;
+
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-right:10px solid black; 
+ }
+
+.canvas-slider::after {
+ 	right: -20px;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-left:10px solid black; 
+
+ }
+
  .screenshot-container {
  	overflow: hidden;
  	display: inline-block;
@@ -91,17 +118,8 @@
  }
 
  .screenshot {
- 	/*
-    position: absolute;
-    */
-    b
-
+ 	
     transition: all 0.3s ease-in;
-    /*
-    margin-left: -50%;
-    
-    
-    */
 	transform: translateX(-100px);
 
 }
