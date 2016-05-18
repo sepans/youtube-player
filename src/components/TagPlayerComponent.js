@@ -22,7 +22,8 @@ class TagPlayerComponent extends React.Component {
     	super(props);
 
     	this.state = {
-      		webmURL: null
+      		webmURL: null,
+      		playing: false
     	}
 
   		console.log('constructor...', props);
@@ -49,13 +50,25 @@ class TagPlayerComponent extends React.Component {
 	}
 
 	_play() {
-  			console.log('play', this.$video)
+  			this.state.playing = true;
   			this.$video.play();
+  			this.forceUpdate();
   	}
 
   	
 	_pause() {
+  			this.state.playing = false;
   			this.$video.pause();
+  			this.forceUpdate();
+  	}
+
+  	_togglePlay() {
+  		if(this.state.playing) {
+  			this._pause();
+  		}
+  		else {
+  			this._play();
+  		}
   	}
 
   	gotoTime(time) {
@@ -66,11 +79,12 @@ class TagPlayerComponent extends React.Component {
 
 	render() {
 
+		const vidClassName = this.state.playing  ? 'video-container playing' : 'video-container';
 
 	    return (
 	    <div className="tagplayer-component">
-	      <div >
-	        <video ref="vid"></video>
+	      <div className={vidClassName} >
+	        <video ref="vid" onClick={this._togglePlay.bind(this)}></video>
 	        
 	      </div>
 	      <div>
