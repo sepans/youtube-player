@@ -14,7 +14,8 @@ class TagTimelineComponent extends React.Component {
 
 		this.state = {
 			currentWidth: 30,
-			currentSlide: -130
+			currentSlide: -130,
+			duration: 180.01 // 180s default vid length
 		}
 
 	}
@@ -48,6 +49,12 @@ class TagTimelineComponent extends React.Component {
 				const ctx = canvas.getContext('2d');
 
 				vid.onloadeddata = function() {
+
+					if(self.state.duration===180.01) {
+						console.log('duration', vid.duration)
+						self.state.duration = vid.duration;
+						self.forceUpdate();
+					}
 					  
 					ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
 					if(i<self.props.conceptData.length-1) {
@@ -99,9 +106,11 @@ class TagTimelineComponent extends React.Component {
 		//const width = 500;
 		let conceptList = this.props.conceptData.map((d, i) => {
 
+			const elementWidth = 638; //TODO make dynamic
+
 			const styles = {
-							'left' :  Math.round(d.start)+'px',
-							 'width' : (d.end-d.start)+'px'
+							'left' :  Math.round(d.start * this.state.duration / elementWidth)+'px',
+							 'width' : ((d.end-d.start) * this.state.duration / elementWidth)+'px'
 							}
 			
 			return (
