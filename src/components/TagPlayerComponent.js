@@ -23,10 +23,10 @@ class TagPlayerComponent extends React.Component {
 
     	this.state = {
       		webmURL: null,
-      		playing: false
+      		playing: false,
+      		progress: 0
     	}
 
-  		console.log('constructor...', props);
   		YoutubeUtils.queryVideoInfo(props.youtubeId)
   			.then(function(info) {
   				this.webmURL = info.webmURL;
@@ -35,6 +35,7 @@ class TagPlayerComponent extends React.Component {
   				this.setState({
   					webmURL: this.webmURL
   				});
+
 
   				
   			}.bind(this))
@@ -45,8 +46,21 @@ class TagPlayerComponent extends React.Component {
 		
 		//create a reference to the video element
 		this.$video = ReactDOM.findDOMNode( this.refs.vid )
+		this.$video.addEventListener('timeupdate', this._updateProgressBar.bind(this))
+
+		
 		
 
+	}
+
+
+				
+
+
+	_updateProgressBar() {
+		var time = this.$video.currentTime;
+		this.state.progress = time / this.$video.duration;
+		this.forceUpdate();
 	}
 
 	_play() {
@@ -73,6 +87,8 @@ class TagPlayerComponent extends React.Component {
 
   	gotoTime(time) {
   		this.$video.currentTime = time;
+  		this.state.progress = time/this.$video.duration;
+  		this.forceUpdate();
 
   	}
 
@@ -94,7 +110,8 @@ class TagPlayerComponent extends React.Component {
 	      <div>
 	      	    <TagTimeline conceptData={this.props.conceptData}
 	      	    			 gotoTime={this.gotoTime.bind(this)}
-	      	    			 videoURL={this.state.webmURL}>
+	      	    			 videoURL={this.state.webmURL}
+	      	    			 progress={this.state.progress}>
 	      	    </TagTimeline>
 	      </div>
 	     </div>

@@ -15,8 +15,11 @@ class TagTimelineComponent extends React.Component {
 		this.state = {
 			currentWidth: 30,
 			currentSlide: -130,
-			duration: 180.01 // 180s default vid length
+			duration: 180.01, // 180s default vid length
+			progressWidth: 0
 		}
+
+		this.elementWidth = 638; //TODO make dynamic
 
 	}
 
@@ -28,6 +31,12 @@ class TagTimelineComponent extends React.Component {
 	componentWillReceiveProps(newProps) {
 
 		// called when props get updated (e.g. video url is set after ajax call)
+		if(newProps.progress !== this.props.progress) {
+
+			 this.state.progressWidth = newProps.progress * this.elementWidth;
+			 this.forceUpdate();
+
+		}
 		if(newProps.videoURL) {
 
 			// virtual video element to create screenshots
@@ -51,7 +60,6 @@ class TagTimelineComponent extends React.Component {
 				vid.onloadeddata = function() {
 
 					if(self.state.duration===180.01) {
-						console.log('duration', vid.duration)
 						self.state.duration = vid.duration;
 						self.forceUpdate();
 					}
@@ -63,6 +71,7 @@ class TagTimelineComponent extends React.Component {
 					}
 				}
 
+
 			}
 
 			createScreenshot(0);
@@ -70,6 +79,7 @@ class TagTimelineComponent extends React.Component {
 
 		}
 	}
+
 
 	_moveLeft() {
 		if(this.state.currentSlide < 0) {
@@ -106,11 +116,11 @@ class TagTimelineComponent extends React.Component {
 		//const width = 500;
 		let conceptList = this.props.conceptData.map((d, i) => {
 
-			const elementWidth = 638; //TODO make dynamic
+			
 
 			const styles = {
-							'left' :  Math.round(d.start * this.state.duration / elementWidth)+'px',
-							 'width' : ((d.end-d.start) * this.state.duration / elementWidth)+'px'
+							'left' :  Math.round(d.start * this.elementWidth / this.state.duration )+'px',
+							 'width' : ((d.end-d.start) * this.elementWidth / this.state.duration)+'px'
 							}
 			
 			return (
@@ -141,6 +151,7 @@ class TagTimelineComponent extends React.Component {
 				<ul key='ls' className='timeline-list'>
 					{conceptList}
 				</ul>
+				<div className='progress' style={{width: this.state.progressWidth}}></div>
 				<div className='canvas-container'>
 					<div className='canvas-slider' style={{marginLeft: this.state.currentSlide}}>
 						{canvases}

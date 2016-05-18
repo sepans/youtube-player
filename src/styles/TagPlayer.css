@@ -28,7 +28,7 @@
 	height: 100px;
 	line-height: 105px;
 	text-align: center;
-	transition: all 0.1s ease-in;
+	transition: all 0.1s ease-out;
 
 }
 
@@ -45,6 +45,14 @@
   
 }
 
+.tagtimeline-component .progress {
+	
+	height: 4px;
+	background-color: steelblue;
+	padding: 0;
+	margin: -1px 0 0 0;
+}
+
 .tagtimeline-component ul {
 
     list-style: none;
@@ -53,7 +61,8 @@
     border: 1px solid #CCC;
     border-top: none;
     height: 16px;
-    margin-top: -14px;
+    margin: -14px 0 0 0;
+
     padding: 0;
 
 }
@@ -110,6 +119,7 @@
 }
 
  .canvas-container {
+ 	margin-top: 10px;
  	width: 639px;
  	height: 150px;
  	overflow: hidden;
